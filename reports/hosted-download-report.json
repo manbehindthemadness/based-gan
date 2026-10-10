@@ -1,0 +1,13 @@
+{
+  "download_source": {
+    "name": "Based GAN Thermal2RGB 256x192 (instance)",
+    "url": "https://github.com/manbehindthemadness/based-gan/releases/download/v0.1.0/thermal2rgb-instance-portable-256x192.onnx",
+    "sha256": "797620eb59a06d9a234c827fc15554f4e3a7a4a4bf2f9086172b3971c4c0bf99",
+    "max_bytes": 200000000
+  },
+  "cpu_output_mean": 88.81134033203125,
+  "cpu_output_std": 56.099822998046875,
+  "cpu_gpu_max_difference": 0.0113525390625,
+  "gpu_output_mean": 88.811279296875,
+  "gpu_output_std": 56.09978485107422
+}
