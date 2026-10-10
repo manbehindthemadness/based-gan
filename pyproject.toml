@@ -1,0 +1,24 @@
+[project]
+name = "based-gan"
+version = "0.1.0"
+description = "Experimental ONNX thermal-to-RGB Custom node for the TOPDON viewer"
+requires-python = ">=3.12"
+dependencies = ["numpy>=2.2", "opencv-python>=4.12", "onnxruntime>=1.23"]
+
+[dependency-groups]
+dev = ["pytest>=8.4", "ruff>=0.13"]
+export = ["torch==2.14.1", "onnx==1.23.2", "onnxscript==0.7.2"]
+viewer = ["topdon-tc002c-duo-macos"]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+topdon-tc002c-duo-macos = { path = "../../..", editable = true }
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

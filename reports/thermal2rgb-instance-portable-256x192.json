@@ -1,0 +1,34 @@
+{
+  "checkpoint_sha256": "6de0c19446cc5edb2e6b38507dcb94c50267c88f1a3a39acb71fe48efd5930ef",
+  "onnx_sha256": "797620eb59a06d9a234c827fc15554f4e3a7a4a4bf2f9086172b3971c4c0bf99",
+  "onnx_bytes": 183684924,
+  "mode": "instance",
+  "portable": true,
+  "input_shape": [
+    1,
+    3,
+    192,
+    256
+  ],
+  "parameters": 45851907,
+  "reconstruction_max_error": 0.0,
+  "onnx_max_error": 0.00020310282707214355,
+  "export_and_verify_seconds": 1.511207084171474,
+  "versions": {
+    "torch": "2.14.1",
+    "onnx": "1.23.2",
+    "onnxruntime": "1.31.0"
+  },
+  "operators": [
+    "Add",
+    "AveragePool",
+    "Concat",
+    "Constant",
+    "Conv",
+    "ConvTranspose",
+    "InstanceNormalization",
+    "Relu",
+    "Slice",
+    "Tanh"
+  ]
+}
