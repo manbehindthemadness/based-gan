@@ -9,8 +9,11 @@ the viewer's separate native radiometric arrays.
 
 This repository belongs at `examples/custom_nodes/based-gan/` in the viewer.
 In the pipeline editor add **Custom**, choose **Open module folder…**, and select
-**`examples/custom_nodes/based-gan/nodes/Based GAN`**. Select a converted model
-with **ONNX model → Browse…**:
+**`examples/custom_nodes/based-gan/nodes/Based GAN`**. Leave **ONNX model** empty
+to download the checksum-pinned native-aspect model from our
+[v0.1.0 release](https://github.com/manbehindthemadness/based-gan/releases/tag/v0.1.0).
+The worker returns the input image while the background download is pending.
+Alternatively, select a local converted model with **ONNX model → Browse…**:
 
 ```text
 examples/custom_nodes/based-gan/artifacts/thermal2rgb-instance-portable-256x192.onnx
@@ -31,7 +34,7 @@ Controls:
 
 | Control | Behavior |
 | --- | --- |
-| ONNX model | Local converter output; weights stay external to embedded pipelines |
+| ONNX model | Empty downloads the default model; Browse overrides it with local converter output |
 | Inference device | CPU, Apple Core ML or NVIDIA CUDA, with viewer capability fallback |
 | Apple compute devices | Default CPU + GPU; ALL also tested locally |
 | Input | Grayscale replicated to RGB by default; RGB supports explicit input experiments |
@@ -47,9 +50,9 @@ pipeline: saved pipelines embed code and do not watch this checkout.
 The runtime uses dependencies already installed in the viewer. Conversion needs
 optional Torch/ONNX dependencies in this repository's separate environment; it
 does not install them in the viewer or download models during folder selection.
-There is no default automatic model URL until redistribution terms are resolved.
-The package supports the viewer's shared downloader if a future checksum-pinned
-source is supplied in its `model` configuration key.
+The default model uses the viewer's shared background downloader and model cache.
+Its URL pins release `v0.1.0`, its SHA-256 pins the exported bytes, and its descriptor
+allows 200 MB because the FP32 model exceeds the downloader's 70 MB default.
 
 ## Results on Apple M4
 
@@ -133,13 +136,22 @@ Source, conversion recipes, provenance and small reports belong in Git.
 machine-specific demo pipeline; large/local artifacts are ignored by Git.
 Keep downloaded original weights as well as derived variants.
 
-Distributable models will use versioned GitHub Release assets with recorded
-SHA-256, input shape, normalization mode and conversion versions. Do not point
-the runtime at mutable `latest` assets. Include an explicit download-size limit:
-these FP32 models exceed the viewer downloader's 70 MB default.
+The [v0.1.0 release](https://github.com/manbehindthemadness/based-gan/releases/tag/v0.1.0)
+hosts the original generator checkpoint and three converted ONNX variants:
+256×192 instance statistics (default), 256×256 instance statistics, and 256×256
+running statistics. `SHA256SUMS.txt`, `provenance.json`, and the conversion reports
+record checksums, shapes, normalization and tool versions. Download alternate
+ONNX variants and choose them with Browse. The default URL uses the versioned
+release rather than a mutable `latest` alias.
 
-See `provenance.json` for upstream revision/checkpoint provenance. No license file
-was found in the inspected Thermal2RGB tree, and weight redistribution terms are
-unresolved. No upstream source or checkpoint binaries are committed here, and no
-derived model release has been published. This repository does not claim a new
-license for upstream weights or material.
+## Model source
+
+The generator and pretrained weights come from
+[shivom9713/Thermal2RGB](https://github.com/shivom9713/Thermal2RGB/tree/af47b637376777d2bb8b8d8d48290f04e7bb206d).
+The original `latest_net_G.pth` is supplied through the upstream README's
+[Google Drive pretrained-model link](https://drive.google.com/file/d/1N_vjU2db2HWWsKiQXqWTujR5_XtOEUjQ/view).
+Upstream reports training on KAIST Multispectral. These ONNX files preserve that
+checkpoint's trained parameters; this project reconstructs its inference graph
+and converts its operators for GPU execution. See `provenance.json` for the exact
+revision, checkpoint checksum and architecture. Attribution and authorship of the
+original model remain with its upstream creators.

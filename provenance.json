@@ -7,10 +7,10 @@
   "architecture": "gll LocalEnhancer; ngf=32; 9 global residual blocks; 3 local residual blocks",
   "parameters": 45851907,
   "training_dataset_reported_by_upstream": "KAIST Multispectral",
-  "code_and_weights_license": "No license file found in inspected upstream tree; redistribution terms unresolved",
   "implementation": "Checkpoint-compatible reconstruction and static boundary rewrites; upstream source is used separately as an explicit local reference",
   "default_normalization": "Per-frame instance statistics, matching the upstream test script's training-mode behavior",
   "input": "Static batch-one RGB NCHW float32 normalized to [-1,1]",
   "output": "Same-shape RGB NCHW float32 Tanh output",
-  "release_status": "Local experimental model artifacts; no derived weights published"
+  "release_url": "https://github.com/manbehindthemadness/based-gan/releases/tag/v0.1.0",
+  "attribution": "Thermal2RGB by shivom9713; pretrained generator from the upstream repository's Google Drive link"
 }

@@ -197,13 +197,17 @@ def test_pending_model_passes_through(
     """
     processor, item, config = setup_node
     config["model_path"] = ""
-    config["model"] = {"url": "https://example.com/model.onnx", "sha256": "a" * 64}
+    assert config["model"]["url"].endswith(
+        "/v0.1.0/thermal2rgb-instance-portable-256x192.onnx"
+    )
+    assert config["model"]["max_bytes"] == 200_000_000
     update(item, config)
 
     def pending(_self: Any, _source: Any) -> None:
         """
         Represent a shared download still in progress.
         """
+        assert _source == config["model"]
 
     monkeypatch.setattr("topdon_duo.custom_nodes.models.ModelResolver.resolve", pending)
     image = np.full((8, 8, 3), 42, dtype=np.float32)
@@ -224,6 +228,7 @@ def test_informative_errors(setup_node: tuple[Any, ...], kind: str, message: str
     FakeSession.bad_output = kind == "output"
     if kind == "missing-model":
         config["model_path"] = ""
+        config.pop("model")
     if kind == "blend":
         config["blend"] = True
     update(item, config)

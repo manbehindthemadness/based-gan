@@ -34,13 +34,19 @@ CONFIG_JSON = {
 _models = ModelResolver()
 _translator: Translator | None = None
 
+MODEL_SOURCE = {
+    "name": "Based GAN Thermal2RGB 256x192 (instance)",
+    "url": "https://github.com/manbehindthemadness/based-gan/releases/download/v0.1.0/thermal2rgb-instance-portable-256x192.onnx",
+    "sha256": "797620eb59a06d9a234c827fc15554f4e3a7a4a4bf2f9086172b3971c4c0bf99",
+    "max_bytes": 200_000_000,
+}
+
 
 def process(image: np.ndarray, config: dict[str, Any]) -> np.ndarray:
     """
     Translate display pixels, preserving geometry and the viewer's radiometry.
 
-    Select local verified weights through the model control. A future pinned
-    HTTPS descriptor can use the same resolver without changing the callback.
+    Use the pinned hosted model by default, or override it through the model control.
     """
     global _translator
     blend = config.get("blend", 1.0)
