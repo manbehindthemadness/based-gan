@@ -1,6 +1,6 @@
 # Based GAN
 
-Experimental Thermal2RGB-compatible ONNX translation for the TOPDON viewer's
+Experimental Thermal2RGB-compatible ONNX translation for the based-thermals
 Custom node. It synthesizes RGB display pixels from thermal grayscale images.
 Generated textures/colors are predictions; temperature measurements remain in
 the viewer's separate native radiometric arrays.
